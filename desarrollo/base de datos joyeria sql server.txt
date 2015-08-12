@@ -1,0 +1,355 @@
+create database menjurjoyas;
+use  menjurjoyas;
+
+create table administrador(  --Crear una nueva tabla
+id_administrador int primary key,   --llave primaria de la tabla administrador
+nombre varchar(15),
+apellido varchar(15),
+dirreccion varchar(20),
+telefono varchar(10),
+correo varchar(20),
+ciudad varchar(15)
+);
+
+insert into administrador --Insertar un nuevo registro
+values(123456789,'jorge','menjura','calle 100',2345456,'menjura@hotmail.com','bogota');
+
+sp_columns administrador;   --mostrar la estructura de la tabla administrador 
+
+select * from administrador  --buscar en todos los registros de la tabla administrador
+
+ select *from administrador
+  where nombre='jorge';
+
+ select nombre,dirreccion from administrador   --de la tabla administrador, mostrar el apellido que coincida con 'menjura'
+  where apellido='menjura';
+
+ select nombre from administrador     --de la tabla administrador, mostrar el telefono que coincida con '2345456'
+  where telefono='2345456';
+
+
+  create table cliente(   --Crear una nueva tabla
+id_cliente int primary key,   --llave primaria de la tabla cliente
+nombre varchar(15),
+primer_apellido varchar(15),
+segundo_apellido varchar(15),
+documento varchar(10),
+direccion varchar(30),
+telefono varchar(10)null,
+correo varchar(30),
+ciudad varchar(15)
+);
+
+drop table cliente; --borrar toda la tabla de cliente con sus registros
+
+insert into cliente --Insertar un nuevo registro
+values(1,'duvan','esquivel','Sutachan',1026315456,'Calle 67 Sur # 72 D 14',7796370,'duvanesquivel@gmail.com','Bogota');
+insert into cliente
+values(2,'Orlando','Menjura','Arenas',1035135451,'Calle 21 Sur # 12 A 45',5754412,'OrlandoArenas@hotmail.com','Cali');
+insert into cliente
+values(3,'Sofia','Monroy','Soler',1024598756,'Carrera 85 A # 45',3234456,'SofiaMonroy@gmail.com','Bucaramanga');
+insert into cliente
+values(4,'Ivan','Reyes','calcetero',1026275920,'Diagonal 23 C # 67 - 32',3423546,'IvanReyes013@hotmail.com','Medellin');
+insert into cliente
+values(5,'Cristian','Garzon','Sastre',1025468789,'Carrera 62 F # 98 - 67',5987632,'CristianG21@gmail.com','Ibague');
+insert into cliente
+values(6,'Carlos','Duarte','Gonzales',53009877,'Cll 34# 20-25',3251512,'Carl6845@gmail.com','Neiva');
+insert into cliente
+values(7,'Luisa','Rodriguez','lopez',19798135,'Cll 45# 18-25 sur',null,'luiro45@gmail.com','Neiva');
+insert into cliente
+values(8,'Andres','Prada','Cortes',53099798,'Carrera 32 bis-25 a sur',2870235,'andres4878@hotmail.com','Bogota');
+insert into cliente
+values(9,'Cristian','Merchan','Cortijo',1086595698,'Carrera 35 a-75 a norte',6420398,'cris4878@hotmail.com','Barranquilla');
+insert into cliente
+values(10,'Camila','Arango','borquez',53894776,'Calle 3 bis # 5 - 19 ',9875100,'arango05@hotmail.com','Bogota');
+insert into cliente
+values(11,'Catalina','Vargas','Andrade',106730588,'Avenida 5 b # 17 - 6',9840237,'Cava03@hotmail.com','Santa Marta');
+insert into cliente
+values(12,'luis','Portilla','Salazar',1098736001,'Calle 100 # 95 a - 14',null,'LuisPor@hotmail.com','Medellin');
+insert into cliente
+values(13,'Maria','Sandoval','Castilla',19831324,'Transversal 78 a bis #59 - 37',3429237,'masa88@hotmail.com','Soacha');
+insert into cliente
+values(14,'Angie','Mendez','Torres',1023689458,'Calle 17 bis-75 a sur',null,'Mendez088@hotmail.com','Barranquilla');
+insert into cliente
+values(15,'Cristian','Castiblanco','Farfan',79458824,'calle 78 bis # 57 - 35',6750235,'Casfa78@hotmail.com','Bogota');
+
+
+truncate table cliente;		--borrar los registros de una tabla
+
+
+sp_table@tables_owner;          --visualizar las tablas existentes
+
+
+sp_columns cliente;		--mostrar la estructura de la tabla cliente
+
+
+select * from cliente	--buscar en todos los registros de la tabla cliente
+
+
+SELECT nombre, Primer_apellido from cliente;	--de la tabla cliente, mostrar los registros de la columna nombre y primer apellido 
+
+
+SELECT nombre FROM cliente	--de la tabla cliente, mostrar los nombres que coincidan con 'Cristian'
+where nombre= 'Cristian';
+
+
+SELECT DISTINCT nombre FROM cliente;	--de la columna nombre mostrar los registros siempre y cuando no se repitan
+
+	
+select nombre,telefono from cliente	--mostrar todos los nombres diferentes a 'carlos'
+where nombre <> 'Carlos';
+
+select nombre from cliente	--de la tabla cliente, mostrar los nombres que coincidan con el numero especificado
+where telefono='7796370';
+
+
+SELECT * FROM cliente WHERE nombre = 'Angie' AND primer_apellido = 'Mendez';		--de la tabla cliente,mostrar los nombres iguales a 'angie' y primer apellido igual a 'Mendez'
+
+SELECT * FROM cliente WHERE nombre = 'Catalina' OR segundo_apellido = 'torres';	  --de la tabla cliente,mostrar los nombres iguales a 'Catalina' ó segundo apellido igual a 'torres'
+
+SELECT* FROM cliente WHERE nombre= ‘ivan’ AND (primer_apellido = 'Reyes' OR primer_apellido = 'Monroy');   --
+
+
+SELECT nombre, primer_apellido FROM cliente ORDER BY primer_apellido ASC;	--mostrar nombre y primer apellido, pero organizarlos segun primer apellido en orden alfabetico ascendente
+
+SELECT nombre, primer_apellido FROM cliente ORDER BY primer_apellido DESC;	--mostrar nombre y primer apellido, pero organizarlos segun primer apellido en orden alfabetico descendente
+						
+
+UPDATE cliente SET segundo_apellido= 'Torres' WHERE direccion = 'calle 78 bis # 57 - 35' AND telefono = '6750235';	--modificar datos de un registro segun las columnas especificadas
+  
+
+Delete from cliente 
+Where documento= '53009877';	--borrar de la tabla cliente el registro que coincida con el numero especificado
+
+
+SELECT TOP 25 PERCENT ciudad FROM cliente;	--Devuelve todas los estados posibles para la columna seleccionada 
+
+
+SELECT * FROM cliente WHERE nombre LIKE 'c%';	--muestra todos los nombres que empiecen con la letra C
+
+
+SELECT* FROM cliente WHERE primer_apellido IN('Arango','Rodriguez');	--muestra los primer apellidos que coincidan tanto con 'Arango' como 'Rodriguez'
+
+
+SELECT * FROM cliente WHERE primer_apellido BETWEEN 'Sandoval' AND 'Vargas';         --muestra los primer apellidos que sean 'Sandoval' y 'Vargas'
+
+SELECT * FROM cliente WHERE segundo_apellido NOT BETWEEN 'Cortijo' AND 'Lopez';		--muestra los primer apellidos que no sean 'cortijo' ni 'Lopez'
+
+
+SELECT nombre, primer_apellido AS segundo_apellido, direccion FROM cliente;           --
+
+--SELECT p.primer_apellido, p.segundo_apellido FROM cliente ASp WHERE p.nombre = 'Carlos';  
+
+
+SELECT * FROM	cliente cl, producto p;		--crear un alias para las tablas especificadas
+
+select *from cliente 		--buscar en todos los registros de la tabla cliente y mostrar solo los 'null' de telefono
+where telefono is null
+
+select *from cliente;		--buscar en todos los registros de la tabla cliente y mostrar solo los valores vacios '' de documento
+where documento=''; 
+
+
+
+create table producto(
+Cod_Producto int primary key,
+nombre varchar(25)not null,
+Cantidad int,
+Referencia varchar(15)not null,
+Descripcion varchar(40),
+Precio float,
+peso varchar(5),
+);
+
+drop table producto;	--borrar la estructura de la tabla
+
+insert into producto
+values (101,'Anillo Marcado','20','Anillo','Anillo marcado con baño de oro',250000,'9grs');
+insert into producto
+values (102,'Pulsera','15','Pulsera','Pulsera de plata',150000,'16grs');
+insert into producto
+values (103,'mancuernas','35','mancuerna','mancuernas de oro 18 kilates',320000,'10grs');
+insert into producto
+values (104,'pulsera ','50','pulsera','pulsera de oro 18 kilates',450000,'15grs');
+insert into producto
+values (105,'argollas ','10','argollas','argollas oro plata',550000,'15grs');
+insert into producto
+values (106,' Candongas','50','candongas','candongas en plata ',85000,'8grs');
+insert into producto
+values (107,'aretes','28','aretes','aretes hello kitty en plata',60000,'9grs');
+insert into producto
+values (108,'cruz  ','50','cruz','cruz de oro 18 kilates',450000,'5grs');
+insert into producto
+values (109,'anillo solitario','5','anillo','anillo con esmeralda de oro 18 kilates',350000,'10grs');
+insert into producto
+values (110,'Cadena en plata','16','cadena','cadena en plata martillada',65000,'20grs');
+insert into producto
+values (111,'Pulsera','6','pulsera','pulsera en plata marcada',45000,'8grs');
+insert into producto
+values (112,'aretes','9','aretes','aretes de corazon de oro 18 kilates',250000,'9grs');
+insert into producto
+values (113,'Anillo con diamante','4','anillo','anillo con diamante de oro 18 kilates',410000,'13grs');
+insert into producto
+values (114,'Anillo','3','anillo','anillo con diamante y esmeralda de oro 18 kilates',440000,'12grs');
+insert into producto
+values (115,'argollas de matrimonio','4','anillo','argollas con diamantado en oro de 18 kilates',510000,'16grs');
+insert into producto
+values (116,'collar','8','collar','collar con diamantado',50000,'11grs');
+
+
+truncate table producto;		--borrar los registros de una tabla
+
+sp_columns producto    --mostrar la estructura de la tabla producto
+
+
+select * from producto    --buscar en todos los registros de la tabla producto
+
+
+SELECT nombre, Cantidad from producto;	--de la tabla producto, mostrar los registros de la columna nombre y cantidad
+
+
+SELECT nombre FROM producto	--de la tabla producto, mostrar los nombres que coincidan con 'Anillo con diamante'
+where nombre= 'Anillo con diamante';
+
+
+SELECT DISTINCT nombre FROM producto;	----de la columna nombre mostrar los registros siempre y cuando no se repitan
+	
+
+select nombre,Cantidad from producto	--mostrar todos los nombres diferentes a 'mancuerna'
+where Referencia <> 'mancuerna';
+
+select nombre from producto  	--de la tabla producto, mostrar los nombres que coincidan con el precio especificado
+where precio='350000';
+
+
+SELECT * FROM producto WHERE nombre = 'anillo solitario' AND Referencia = 'anillo';		--de la tabla producto,mostrar los nombres iguales a 'pulseras' y referencia igual a 'anillo'
+
+SELECT * FROM producto WHERE nombre = 'anillo con diamante de oro 18 kilates' OR Descripcion = 'aretes de corazon de oro 18 kilates';	  --de la tabla producto,mostrar los nombres iguales a 'anillo con diamante de oro 18 kilates' ó descripcion igual a 'aretes de corazon de oro 18 kilates'
+
+
+
+select *from producto
+  where Nombre='Anillo Marcado';
+
+ select Nombre,Referencia from producto
+  where Precio<='300000';
+
+ select Nombre from producto
+  where Cod_Producto='101';
+
+  create table Factura(
+id_cliente int identity,
+Cod_Factura int primary key,
+Cod_Producto int,
+Fecha date,
+Descripcion varchar(30),
+Cantidad_Producto int,
+Precio float (15),
+total float not null,
+  );
+ 
+ drop table Factura;
+ 
+ set dateformat ymd; 	--formato el cual se mostrara los formatos de fecha sin importar el orden en que esten 
+ 
+ insert into Factura
+  values (10011,101,'10/10/1990','Anillo marcado con baño de oro',2,250000,500000);
+   insert into Factura
+  values (10022,102,'2015/01/10','pulsera de plata',3,150000,450000);
+   insert into Factura
+  values (10023,103,'2015/02/08','mancuernas',1,320000,320000);
+   insert into Factura
+  values (10024,104,'2014/02/10','pulsera de oro',3,320000,960000);
+   insert into Factura
+  values (10025,105,'2015/03/01','argollas oro plata',1,550000,550000);
+   insert into Factura
+  values (10026,106,'2015/03/15','candongas en plata',1,85000,85000);
+   insert into Factura
+  values (10027,107,'2015/04/30','aretes hello kitty',2,60000,120000);
+   insert into Factura
+  values (10028,108,'2015/05/29','cruz de oro',4,450000,1800000);
+   insert into Factura
+  values (10029,109,'2015/06/01','anillo con esmeralda',1,350000,350000);
+   insert into Factura
+  values (10030,110,'2015/06/03','cadena en plata martillada',1,65000,65000);
+   insert into Factura
+  values (10031,111,'2015/06/06','pulsera en plata marcada',2,45000,90000);
+   insert into Factura
+  values (10032,112,'2015/06/07','aretes de corazon ',1,250000,250000);
+   insert into Factura
+  values (10033,113,'2015/06/09','anillo con diamante',5,400000,2000000);
+   insert into Factura
+  values (10034,114,'2015/06/11','anillo con diamante y esmeralda',2,460000,920000);
+   insert into Factura
+  values (10035,115,'2015/06/13','argollas con diamantado',1,500000,500000);
+  
+  truncate table factura;
+  
+  sp_columns Factura
+
+  select * from Factura
+  
+  insert into Factura
+  values (10024,104,'2002/06/02','Cadena plata',2,80000,160000);
+  
+  
+  UPDATE Factura set Descripcion='mancuernas de oro'
+  where Descripcion= 'mancuernas'; 
+
+
+  alter table producto add id_cliente int foreign key references cliente (id_cliente);  --modificar la estructura de la tabla segun la columna a ingresar (id_cliente) y especificarla como llave foranea
+
+SELECT * FROM cliente cross join producto where cliente.nombre= 'cristian';	--Mostrar aleatoriamente los registros de las dos tablas especificadas
+
+SELECT * FROM cliente INNER JOIN producto on producto.nombre = 'Anillo marcado';  --combinar cada fila de una tabla con cada fila de la otra tabla
+
+SELECT * FROM cliente LEFT JOIN producto on cliente.nombre = producto.nombre;  --combina los valores de la primera tabla con los valores de la segunda tabla
+
+SELECT * FROM cliente RIGHT JOIN producto on cliente.nombre = producto.nombre;  --Siempre devolverá las filas de la segunda tabla
+
+
+SELECT distinct precio [{total}] 
+FROM Factura
+
+
+
+select primer_apellido, segundo_apellido, referencia, peso from cliente INNER JOIN producto ON cliente.primer_apellido='Duarte'
+
+WHERE  peso='9grs' 
+
+GROUP BY Referencia, segundo_apellido, primer_apellido, peso
+
+having Referencia='anillo'
+
+ORDER BY primer_apellido asc
+
+
+
+
+--HAVING <condicion>[{ AND|OR <condicion>}]]
+  [ORDER BY <nombre_campo>|<indice_campo> [ASC | DESC]
+   [{,<nombre_campo>|<indice_campo> [ASC | DESC ]}]];
+
+
+   
+SELECT distinct precio, peso
+FROM producto RIGHT JOIN producto ON cliente.nombre= producto.nombre
+
+
+
+
+
+
+
+   select count(*) from Factura
+  where Descripcion='pulsera de oro';
+ select count(*) from Factura
+  where Descripcion='anillo con diamante';
+
+  select Descripcion, count(*)
+  from Factura
+  group by Descripcion;
+
+
+  select count(*) from Factura
+  where total='500000';
